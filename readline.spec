@@ -1,13 +1,15 @@
 Summary: A library for editing typed command lines
 Name: readline
 Version: 6.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPLv3+
 Group: System Environment/Libraries
 URL: http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html
 Source: ftp://ftp.gnu.org/gnu/readline/readline-%{version}.tar.gz
 # upstream patches
 Patch1: ftp://ftp.cwru.edu/pub/bash/readline-6.2-patches/readline62-001
+Patch2: ftp://ftp.cwru.edu/pub/bash/readline-6.2-patches/readline62-003
+
 # fix file permissions, remove RPATH, use CFLAGS
 Patch20: readline-6.2-shlib.patch
 # add TTY input audit support
@@ -57,6 +59,7 @@ library.
 %prep
 %setup -q
 %patch1 -p0
+%patch2 -p0
 %patch20 -p1 -b .shlib
 %patch21 -p1 -b .audit
 %patch22 -p1 -b .cppmacro
@@ -139,6 +142,10 @@ fi
 %{_libdir}/lib*.a
 
 %changelog
+* Mon Feb 13 2017 Siteshwar Vashisht <svashisht@redhat.com> - 6.2-10
+- Fix for slow behaviour while pasting text
+  Resolves: #1300513
+
 * Mon Mar 24 2014 Lukáš Nykrýn <lnykryn@redhat.com> - 6.2-9
 - fix for CVE-2014-2524
 
