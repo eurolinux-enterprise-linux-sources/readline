@@ -1,7 +1,7 @@
 Summary: A library for editing typed command lines
 Name: readline
 Version: 6.2
-Release: 6%{?dist}
+Release: 9%{?dist}
 License: GPLv3+
 Group: System Environment/Libraries
 URL: http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html
@@ -17,6 +17,7 @@ Patch22:  readline-6.2-cppmacro.patch
 # add workaround for problem in gdb
 # in new version of readline needs to be deleted
 Patch23:  readline-6.2-gdb.patch
+Patch24:  readline-6.2-rl_trace.patch
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 BuildRequires: ncurses-devel
@@ -60,6 +61,7 @@ library.
 %patch21 -p1 -b .audit
 %patch22 -p1 -b .cppmacro
 %patch23 -p1 -b .gdb
+%patch24 -p1 -b .rl
 
 pushd examples
 rm -f rlfe/configure
@@ -137,6 +139,15 @@ fi
 %{_libdir}/lib*.a
 
 %changelog
+* Mon Mar 24 2014 Lukáš Nykrýn <lnykryn@redhat.com> - 6.2-9
+- fix for CVE-2014-2524
+
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 6.2-8
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 6.2-7
+- Mass rebuild 2013-12-27
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 6.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
